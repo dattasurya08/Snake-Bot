@@ -5,7 +5,7 @@
 #include <Adafruit_PWMServoDriver.h>
 
 #define MIN_PULSE_WIDTH 600
-#define MAX_PULSE_WIDTH 2600
+#define MAX_PULSE_WIDTH 2400
 #define FREQUENCY 50
 #define N 5
 
