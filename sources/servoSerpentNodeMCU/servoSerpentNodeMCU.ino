@@ -14,7 +14,7 @@ const int initVal = 90;
 const float lag = 0.5712;
 const float pi =3.14159;
 const int frequency = 6;
-const int amplitude = 40;
+const int amplitude = 30;
 const int rightofset = -5;
 const int leftofset = 5;
 const int ofset = 6;
@@ -94,14 +94,14 @@ void sstop(void)
   }
 }
 
-void forward(void)
+void backward(void)
 {
   delay(delayTime);
   for(int i = 0; i < N; i++)
   {
-    if(i == 0)
-      s[i].write(initVal+ofset+20*cos(frequency*counter*pi/180+(i-2)*lag));
-    else
+//    if(i == 0)
+//      s[i].write(initVal+ofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//    else
       s[i].write(initVal+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
   }
   if(counter >= 360) {
@@ -112,14 +112,14 @@ void forward(void)
   }
 }
 
-void backward(void)
+void forward(void)
 {
   delay(delayTime);
   for(int i = 0; i < N; i++)
   {
-    if(i == 0)
-      s[i].write(initVal+ofset+20*cos(frequency*counter*pi/180+(i-2)*lag));
-    else
+//    if(i == 0)
+//      s[i].write(initVal+ofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//    else
       s[i].write(initVal+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
   }
   if(counter <= 0) {
@@ -133,83 +133,81 @@ void backward(void)
 void right(void)
 {
   delay(delayTime);
-  if(counter < 10)
-  {
+//  if(counter > 350)
+//  {
+//    for(int i = 0; i < N; i++)
+//    {
+//      if(i == 0)
+//        s[i].write(initVal-ofset+.1*counter*rightofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//      else
+//        s[i].write(initVal+.1*counter*rightofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//    }
+//  }
+//  if(counter > 10)
+//  {
     for(int i = 0; i < N; i++)
     {
       if(i == 0)
-        s[i].write(initVal-ofset+.1*counter*rightofset+20*cos(frequency*counter*pi/180+(i-2)*lag));
-      else
-        s[i].write(initVal+.1*counter*rightofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
-    }
-  }
-  else if(counter < 350)
-  {
-    for(int i = 0; i < N; i++)
-    {
-      if(i == 0)
-        s[i].write(initVal-ofset+rightofset+20*cos(frequency*counter*pi/180+(i-2)*lag));
+        s[i].write(initVal-ofset+rightofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
       else
         s[i].write(initVal+rightofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
     }
-  }
-  else if(counter < 360)
-  {
-    for(int i = 0; i < N; i++)
-    {
-      if(i == 0)
-        s[i].write(initVal-ofset+.1*(360-counter)*rightofset+20*cos(frequency*counter*pi/180+(i-2)*lag));
-      else
-        s[i].write(initVal+.1*(360-counter)*rightofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
-    }
-  }
-  if(counter >= 360) {
-    counter = 0;
+//  }
+//  else if(counter > 0)
+//  {
+//    for(int i = 0; i < N; i++)
+//    {
+//      if(i == 0)
+//        s[i].write(initVal-ofset+.1*(360-counter)*rightofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//      else
+//        s[i].write(initVal+.1*(360-counter)*rightofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//    }
+//  }
+  if(counter <= 0) {
+    counter = 360;
   }
   else {
-    counter++;
+    counter--;
   }
 }
 
 void left(void)
 {
   delay(delayTime);
-  if(counter < 10)
-  {
+//  if(counter > 350)
+//  {
+//    for(int i = 0; i < N; i++)
+//    {
+//      if(i == 0)
+//        s[i].write(initVal+ofset+.1*counter*leftofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//      else
+//        s[i].write(initVal+.1*counter*leftofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//    }
+//  }
+//  if(counter > 10)
+//  {
     for(int i = 0; i < N; i++)
     {
       if(i == 0)
-        s[i].write(initVal+ofset+.1*counter*leftofset+20*cos(frequency*counter*pi/180+(i-2)*lag));
-      else
-        s[i].write(initVal+.1*counter*leftofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
-    }
-  }
-  else if(counter < 350)
-  {
-    delay(delayTime);
-    for(int i = 0; i < N; i++)
-    {
-      if(i == 0)
-        s[i].write(initVal+ofset+leftofset+20*cos(frequency*counter*pi/180+(i-2)*lag));
+        s[i].write(initVal+ofset+leftofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
       else
         s[i].write(initVal+leftofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
     }
-  }
-  else if(counter < 360)
-  {
-    delay(delayTime);
-    for(int i = 0; i < N; i++)
-    {
-      if(i == 0)
-        s[i].write(initVal+ofset+.1*(360-counter)*leftofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
-      else
-        s[i].write(initVal+.1*(360-counter)*leftofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
-    }
-  }
-  if(counter >= 360) {
-    counter = 0;
+//  }
+//  else if(counter > 0)
+//  {
+//    for(int i = 0; i < N; i++)
+//    {
+//      if(i == 0)
+//        s[i].write(initVal+ofset+.1*(360-counter)*leftofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//      else
+//        s[i].write(initVal+.1*(360-counter)*leftofset+amplitude*cos(frequency*counter*pi/180+(i-2)*lag));
+//    }
+//  }
+  if(counter <= 0) {
+    counter = 360;
   }
   else {
-    counter++;
+    counter--;
   }
 }
